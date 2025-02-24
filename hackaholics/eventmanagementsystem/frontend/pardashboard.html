@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to right, #9abcff, #4608d5);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        h1 {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .event-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .event-card {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            overflow: hidden;
+            width: 300px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+        .event-card:hover {
+            transform: scale(1.05);
+        }
+        .event-header {
+            background: linear-gradient(45deg, #e7e709, #daa411);
+            padding: 15px;
+            color: white;
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+        .event-body {
+            padding: 15px;
+            text-align: left;
+        }
+        .event-footer {
+            background: #dfb90f;
+            padding: 10px;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+        }
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 10;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.5);
+        }
+        .modal-content {
+            background: white;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .modal button {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin-top: 10px;
+            background: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .modal button:hover {
+            background: #357acb;
+        }
+    </style>
+</head>
+<body>
+    <h1>Events</h1>
+    <div class="event-container">
+        {% for event in events %}
+            <div class="event-card" onclick="openModal('{{ event.name }}')">
+                <div class="event-header">{{ event.name }}</div>
+                <div class="event-body">
+                    <p><strong>Date:</strong> {{ event.datetime }}</p>
+                    <p><strong>Location:</strong> {{ event.location }}</p>
+                    <p><strong>Category:</strong> {{ event.category }}</p>
+                    <p><strong>Type:</strong> {{ event.eventtype }}</p>
+                </div>
+                <div class="event-footer">Hosted by: {{ event.organizeremail }}</div>
+            </div>
+        {% empty %}
+            <p>No events available at the moment.</p>
+        {% endfor %}
+    </div>
+    
+    <!-- Modal -->
+    <div id="eventModal" class="modal">
+        <div class="modal-content">
+            <h2 id="eventTitle"></h2>
+            <button onclick="closeModal()">Close</button>
+            <button>Register and Get Ticket</button>
+            <button>Participate in Event Activities</button>
+            <button>View Live/Recorded Session</button>
+            <button>View Location</button>
+        </div>
+    </div>
+    
+    <script>
+        function openModal(eventName) {
+            document.getElementById('eventTitle').innerText = eventName;
+            document.getElementById('eventModal').style.display = 'block';
+        }
+        function closeModal() {
+            document.getElementById('eventModal').style.display = 'none';
+        }
+        window.onclick = function(event) {
+            if (event.target === document.getElementById('eventModal')) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Event</title>
+    <style>
+        /* Gradient Background */
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        
+
+
+        /* Form Container */
+        .container {
+            background: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            width: 850px;
+            text-align: center;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+            font-size: 24px;
+        }
+
+        /* Two-Column Layout */
+        .form-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 50px;
+            padding: 10px;
+        }
+
+        .column {
+            width: 48%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Form Elements */
+        label {
+            font-weight: bold;
+            margin-top: 10px;
+            text-align: left;
+            color: #444;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            margin-top: 5px;
+            border: 2px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            transition: 0.3s;
+        }
+
+        /* Hover & Focus Effects */
+        input:focus, textarea:focus, select:focus {
+            border-color: #007BFF;
+            outline: none;
+            box-shadow: 0 0 8px rgba(0, 123, 255, 0.3);
+        }
+
+        textarea {
+            height: 80px;
+            resize: none;
+        }
+
+        /* Submit Button */
+        button {
+            width: 100%;
+            padding: 14px;
+            background: #28a745;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #218838;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Create an Event</h2>
+        <form action="{% url 'newevent' %}" method="POST">
+            {% csrf_token %}
+            <div class="form-container">
+                <!-- Left Column -->
+                <div class="column">
+                    <label for="event_name">Event Name:</label>
+                    <input type="text" id="event_name" name="event_name" placeholder="Enter event name" required>
+
+                    <label for="organizer_email">Organizer Email:</label>
+                    <input type="email" id="organizer_email" name="organizer_email" placeholder="Enter your email" required>
+
+                    <label for="event_description">Event Description:</label>
+                    <textarea id="event_description" name="event_description" placeholder="Describe your event" required></textarea>
+
+                    <label for="event_datetime">Event Date & Time:</label>
+                    <input type="datetime-local" id="event_datetime" name="event_datetime" required>
+
+                    <label for="event_location">Event Location:</label>
+                    <input type="text" id="event_location" name="event_location" placeholder="Enter location" required>
+
+                </div>
+
+                <!-- Right Column -->
+                <div class="column">
+                    <label for="event_type">Event Type:</label>
+                    <select id="event_type" name="event_type" required>
+                        <option value="Online">Online</option>
+                        <option value="In-person">In-person</option>
+                        <option value="Hybrid">Hybrid</option>
+                    </select>
+
+                    <label for="event_category">Event Category:</label>
+                    <select id="event_category" name="event_category" required>
+                        <option value="Music">Music</option>
+                        <option value="Tech">Tech</option>
+                        <option value="Education">Education</option>
+                        <option value="Business">Business</option>
+                        <option value="Sports">Sports</option>
+                    </select>
+
+                    
+                    <label for="youtube_link">YouTube Livestream Link (if online):</label>
+                    <input type="url" id="youtube_link" name="youtube_link" placeholder="https://youtube.com/yourlink">
+
+                
+                </div>
+            </div>
+
+            <button type="submit">Create Event</button>
+        </form>
+    </div>
+
+</body>
+</html>
