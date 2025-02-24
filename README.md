@@ -2,6 +2,8 @@
 
 run commands:
 
-  python manage.py makemigrations eventmanagementsystem
-  python manage.py migrate
-  python manage.py runserver
+  1)python manage.py makemigrations eventmanagementsystem
+
+  2)python manage.py migrate
+  
+  3)python manage.py runserver
